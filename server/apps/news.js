@@ -1,7 +1,36 @@
 import { Router } from "express";
 import { pool } from "../utils/db.js";
+import multer from "multer";
+import { cloudinaryUpload } from "../utils/upload.js";
 
 const newsRouter = Router();
+
+const multerUpload = multer({ dest: "uploads/" });
+const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
+
+newsRouter.post("/", avatarUpload, async (req, res) => {
+  const user = {
+    username: req.body.username,
+    password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  };
+
+  console.log(req.files.avatar);
+  const avatarUrl = await cloudinaryUpload(req.files);
+  user["avatars"] = avatarUrl[0].url;
+  console.log(avatarUrl[0].url);
+
+  await pool.query(
+    `insert into news (title, content, image)
+    values ($1, $2, $3)`,
+    [user.firstName, user.lastName, user.avatars]
+  );
+
+  return res.json({
+    message: "User has been created successfully",
+  });
+});
 
 newsRouter.get("/", async (req, res) => {
   try {
