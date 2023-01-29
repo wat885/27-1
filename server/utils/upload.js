@@ -6,7 +6,7 @@ import fs from "fs/promises";
 const cloudinaryUpload = async (files) => {
   const fileUrl = [];
 
-  for (let file of files.avatar) {
+  for (let file of files.img) {
     const result = await cloudinary.uploader.upload(file.path, {
       folder: "news",
       type: "private",

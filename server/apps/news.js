@@ -6,25 +6,23 @@ import { cloudinaryUpload } from "../utils/upload.js";
 const newsRouter = Router();
 
 const multerUpload = multer({ dest: "uploads/" });
-const avatarUpload = multerUpload.fields([{ name: "avatar", maxCount: 2 }]);
+const avatarUpload = multerUpload.fields([{ name: "img", maxCount: 2 }]);
 
 newsRouter.post("/", avatarUpload, async (req, res) => {
   const user = {
-    username: req.body.username,
-    password: req.body.password,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
   };
 
-  console.log(req.files.avatar);
-  const avatarUrl = await cloudinaryUpload(req.files);
-  user["avatars"] = avatarUrl[0].url;
-  console.log(avatarUrl[0].url);
+  console.log(req.files.img);
+  const Url = await cloudinaryUpload(req.files);
+  user["image"] = Url[0].url;
+  console.log(Url[0].url);
 
   await pool.query(
     `insert into news (title, content, image)
     values ($1, $2, $3)`,
-    [user.firstName, user.lastName, user.avatars]
+    [user.firstName, user.lastName, user.image]
   );
 
   return res.json({

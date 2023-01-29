@@ -6,20 +6,20 @@ function News() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [avatars, setAvatars] = useState({});
+  const [img, setImg] = useState({});
 
   const handleFileChange = (event) => {
     const uniqueId = Date.now();
-    setAvatars({
-      ...avatars,
+    setImg({
+      ...img,
       [uniqueId]: event.target.files[0],
     });
   };
 
   const handleRemoveImage = (event, avatarKey) => {
     event.preventDefault();
-    delete avatars[avatarKey];
-    setAvatars({ ...avatars });
+    delete img[avatarKey];
+    setImg({ ...img });
   };
 
   const handleSubmit = (event) => {
@@ -31,8 +31,8 @@ function News() {
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
 
-    for (let avatarKey in avatars) {
-      formData.append("avatar", avatars[avatarKey]);
+    for (let avatarKey in img) {
+      formData.append("img", img[avatarKey]);
     }
 
     for (var pair of formData.entries()) {
@@ -50,7 +50,10 @@ function News() {
   };
   return (
     <div className="register-form-container">
+      
       <form className="register-form" onSubmit={handleSubmit}>
+
+        
         <h1>Register Form</h1>
         <div className="input-container">
           <label>
@@ -126,8 +129,8 @@ function News() {
           </label>
 
           <div className="image-list-preview-container">
-            {Object.keys(avatars).map((avatarKey) => {
-              const file = avatars[avatarKey];
+            {Object.keys(img).map((avatarKey) => {
+              const file = img[avatarKey];
               return (
                 <div key={avatarKey} className="image-preview-container">
                   <img
