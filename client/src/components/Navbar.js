@@ -4,7 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 function Navbar() {
   return (
-    <div className=" bg-pink-500  md:bg-[#004393] w-full font-sans ">
+    <div className=" bg-[#004393]  md:bg-[#004393] w-full font-sans ">
       <img
         className="w-full"
         src="https://res.cloudinary.com/dyfc6ffal/image/private/s----FFUJWh--/v1674897873/news/aml3uahzfhqnpjv4vp8o.png"
@@ -32,7 +32,7 @@ function Navbar() {
           <li className="mr-[4rem]">
             <a className="text-white " href="#">
               รายการสด
-              <span className="bg-red-500 rounded-[2rem] px-[0.75rem] py-[0.25rem] ml-[0.5rem]">
+              <span className="bg-red-500 rounded-[2rem] px-[0.75rem] pt-[0.25rem] pb-[0.5rem] ml-[0.5rem]">
                 {" "}
                 <span className=" inline-block bg-white w-[6px] h-[6px] rounded-[50%] p-[2px] my-[2px]"></span>{" "}
                 Live
