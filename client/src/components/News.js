@@ -11,14 +11,14 @@ function News() {
   const handleFileChange = (event) => {
     const uniqueId = Date.now();
     setImg({
-      ...img,
+      // ...img,
       [uniqueId]: event.target.files[0],
     });
   };
 
-  const handleRemoveImage = (event, avatarKey) => {
+  const handleRemoveImage = (event, key) => {
     event.preventDefault();
-    delete img[avatarKey];
+    delete img[key];
     setImg({ ...img });
   };
 
@@ -31,8 +31,8 @@ function News() {
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
 
-    for (let avatarKey in img) {
-      formData.append("img", img[avatarKey]);
+    for (let key in img) {
+      formData.append("img", img[key]);
     }
 
     for (var pair of formData.entries()) {
@@ -120,7 +120,7 @@ function News() {
             Avatar
             <input
               id="upload"
-              name="avatar"
+              name="img"
               type="file"
               placeholder="Enter last name here"
               onChange={handleFileChange}
@@ -129,10 +129,10 @@ function News() {
           </label>
 
           <div className="image-list-preview-container">
-            {Object.keys(img).map((avatarKey) => {
-              const file = img[avatarKey];
+            {Object.keys(img).map((key) => {
+              const file = img[key];
               return (
-                <div key={avatarKey} className="image-preview-container">
+                <div key={key} className="image-preview-container">
                   <img
                     className="image-preview"
                     src={URL.createObjectURL(file)}
@@ -140,7 +140,7 @@ function News() {
                   />
                   <button
                     className="image-remove-button"
-                    onClick={(event) => handleRemoveImage(event, avatarKey)}
+                    onClick={(event) => handleRemoveImage(event, key)}
                   >
                     x
                   </button>
@@ -148,6 +148,8 @@ function News() {
               );
             })}
           </div>
+
+
         </div>
         <div className="form-actions">
           <button type="submit">Submit</button>

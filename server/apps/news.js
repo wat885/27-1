@@ -9,32 +9,37 @@ const multerUpload = multer({ dest: "uploads/" });
 const avatarUpload = multerUpload.fields([{ name: "img", maxCount: 2 }]);
 
 newsRouter.post("/", avatarUpload, async (req, res) => {
-  const user = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+  const newActivity = {
+    // firstName: req.body.firstName,
+    // lastName: req.body.lastName,
+    topic: req.body.topic,
+    content: req.body.content,
   };
+
+  console.log(req.body);
 
   console.log(req.files.img);
   const Url = await cloudinaryUpload(req.files);
-  user["image"] = Url[0].url;
+  newActivity["image"] = Url[0].url;
   console.log(Url[0].url);
 
   await pool.query(
     `insert into news (title, content, image)
     values ($1, $2, $3)`,
-    [user.firstName, user.lastName, user.image]
+    [newActivity.topic, newActivity.content, newActivity.image]
   );
 
-  return res.json({
-    message: "User has been created successfully",
+  return res.status(200).json({
+    message: "Activity has been created successfully",
   });
 });
 
 newsRouter.get("/", async (req, res) => {
   try {
-    const result = await pool.query("select * from news");
+    const result = await pool.query(`SELECT * FROM news
+    ORDER BY id DESC `);
 
-    console.log(result.rows);
+    // console.log(result.rows);
 
     return res.status(200).json({
       data: result.rows,
@@ -53,7 +58,7 @@ newsRouter.get("/:id", async (req, res) => {
     console.log(result.rows[0]);
 
     if (result.rows[0]) {
-      return res.json({
+      return res.status(200).json({
         data: result.rows[0],
       });
     } else {
