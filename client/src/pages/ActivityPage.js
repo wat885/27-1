@@ -47,30 +47,40 @@ function ActivityPage() {
       </div>
 
       <div className="w-full  max-w-6xl m-auto flex flex-wrap  justify-center    ">
-
         {activity ? (
           activity.map((item) => {
             return (
-              <div className="s:maw-w-[50%] md:max-w-[33%] g:max-w-[25%]  px-[15px]  " key={item.id}>
-                <a href="#">
-                  <div className="flex flex-col items-center">
-                    <div className="relative  h-[150px] w-[250px]">
+              <div
+                className="s:maw-w-[50%] md:max-w-[33%] g:max-w-[25%]  px-[15px]  "
+                key={item.id}
+              >
+                <div className="flex flex-col items-center">
+                  <div className="relative  h-[150px] w-[250px]">
+                    <button onClick={(e) => navigate(`/${item.id}`)}>
                       <img
                         className=" object-cover h-[150px] w-[250px] rounded-md "
-                        src= {item.image}
+                        src={item.image}
                       />
                       <div className="absolute top-[50%] left-[50%] w-[48px] translate-y-[-50%] translate-x-[-50%] ">
                         <img src="https://www.workpointtv.com/wp-content/themes/wptv/assets/img/btn-play.png" />
                       </div>
-                      <button className="absolute right-[-5%] top-[-5%] ">
-                        <GiCancel color="red" />
-                      </button>
-                    </div>
-                    <div className="my-2  w-[250px]">
-                      {item.title}
-                    </div>
+                    </button>
+                    <button
+                      className="absolute right-[-5%] top-[-5%] "
+                      onClick={(e) => {
+                        console.log("delete");
+                      }}
+                    >
+                      <GiCancel color="red" />
+                    </button>
                   </div>
-                </a>
+                  <div
+                    className="my-2  w-[250px] hover:underline cursor-pointer"
+                    onClick={(e) => navigate(`/${item.id}`)}
+                  >
+                    {item.title}
+                  </div>
+                </div>
               </div>
             );
           })

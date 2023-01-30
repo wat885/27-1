@@ -28,8 +28,8 @@ function CreatePage() {
     formData.append("topic", topic);
     formData.append("content", content);
 
-    for (let avatarKey in img) {
-      formData.append("img", img[avatarKey]);
+    for (let key in img) {
+      formData.append("img", img[key]);
     }
 
     for (var pair of formData.entries()) {
@@ -39,11 +39,16 @@ function CreatePage() {
   };
 
   const createActivity = async (data) => {
-    console.log("createActivity");
-    await axios.post("http://localhost:4000/news/", data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    navigate("/");
+    try {
+      console.log("createActivity");
+      await axios.post("http://localhost:4000/news/", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      navigate("/");
+    }
   };
 
   return (
@@ -80,7 +85,7 @@ function CreatePage() {
 
             <div>
               {editmode && (
-                <label htmlFor="upload">
+                <label htmlFor="upload" className="cursor-pointer">
                   Upload image
                   <input
                     id="upload"
