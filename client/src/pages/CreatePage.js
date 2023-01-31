@@ -69,7 +69,7 @@ function CreatePage() {
           <form className="register-form" onSubmit={handleSubmit}>
             <div>
               {!editmode ? (
-                <h1 className=" text-[2.5rem]  ">{topic}</h1>
+                <h1 className="  text-[2rem] lg:text-[2.5rem]   ">{topic}</h1>
               ) : (
                 <div className="mb-3 pt-0">
                   <input
@@ -77,7 +77,7 @@ function CreatePage() {
                     className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    placeholder="Enter content here"
+                    placeholder="Enter topic here"
                     required
                   />
                 </div>
@@ -95,7 +95,6 @@ function CreatePage() {
                     id="upload"
                     name="img"
                     type="file"
-                    placeholder="Enter last name here"
                     onChange={handleFileChange}
                     hidden
                     required
@@ -107,7 +106,7 @@ function CreatePage() {
                 {Object.keys(img).map((key) => {
                   const file = img[key];
                   return (
-                    <div key={key} className="">
+                    <div key={key} className="object-cover w-full lg:w-[50%] ">
                       <img
                         className=" object-cover w-[50%]  "
                         src={URL.createObjectURL(file)}

@@ -4,17 +4,15 @@ import { GiCancel } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Modal from "../components/Modal";
 
 function ActivityPage() {
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [activity, setActivity] = useState("");
-  const [maxActivity, setMaxActivity] = useState(11);
+  const [maxActivity, setMaxActivity] = useState(7);
+  const [showModal, setShowModal] = React.useState(false);
 
   const navigate = new useNavigate();
-
-
-  console.log(activity.length);
-
 
   useEffect(() => {
     getActivityData();
@@ -25,7 +23,11 @@ function ActivityPage() {
     setActivity(response.data.data);
   };
   const deleteActivityData = async (id) => {
+    // del to server
     const response = await axios.delete(`http://localhost:4000/news/${id}`);
+    // del to fe
+    const newactivity = activity.filter((e) => e.id !== id);
+    setActivity(newactivity);
   };
 
   return (
@@ -51,7 +53,7 @@ function ActivityPage() {
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           onClick={(e) => navigate("/create")}
         >
-          createActivity
+          + New
         </button>
       </div>
 
@@ -75,15 +77,22 @@ function ActivityPage() {
                           <img src="https://www.workpointtv.com/wp-content/themes/wptv/assets/img/btn-play.png" />
                         </div>
                       </button>
-                      <button
+                      {/* <button
                         className="absolute right-[-5%] top-[-5%] "
                         onClick={(e) => {
-                          console.log("delete", item.id);
-                          deleteActivityData(item.id);
+                          // console.log("delete", item.id);
+                          console.log("delete");
+                          // deleteActivityData(item.id);
                         }}
                       >
                         <GiCancel color="red" />
-                      </button>
+                      </button> */}
+                      <Modal
+                        id={item.id}
+                        deleteActivityData={deleteActivityData}
+                        title={item.title}
+                      />
+                      
                     </div>
                     <div
                       className="my-2  w-[250px] hover:underline cursor-pointer"
@@ -106,7 +115,7 @@ function ActivityPage() {
             className=" text-[#007bff] hover:underline   text-m flex justify-center   "
             type="button"
             onClick={() => {
-              setMaxActivity(maxActivity + 4);
+              setMaxActivity(maxActivity + 20);
             }}
           >
             ดูเพิ่ม
@@ -125,9 +134,89 @@ function ActivityPage() {
             </svg>
           </button>
         </div>
-     )}
+      )}
     </div>
   );
 }
 
 export default ActivityPage;
+
+// function Modal(props) {
+//   const [showModal, setShowModal] = React.useState(false);
+ 
+//   return (
+//     <>
+//       {/* <button
+//         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+//         type="button"
+//         onClick={() => setShowModal(true)}
+//       >
+//         Open small modal
+//       </button> */}
+//       <button
+//         className="absolute right-[-5%] top-[-5%] "
+//         onClick={(e) => {
+//           setShowModal(true);
+//           console.log(props);
+//         }}
+//       >
+//         <GiCancel color="red" />
+//       </button>
+//       {showModal ? (
+//         <>
+//           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+//             <div className="relative w-auto my-6 mx-auto max-w-sm">
+//               {/*content*/}
+//               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+//                 {/*header*/}
+//                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+//                   <h3 className="text-3xl font-semibold">Delete</h3>
+//                   <button
+//                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+//                     onClick={() => setShowModal(false)}
+//                   >
+//                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+//                       ×
+//                     </span>
+//                   </button>
+//                 </div>
+//                 {/*body*/}
+//                 <div className="relative p-6 flex-auto">
+//                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
+//                     I always felt like I could do anything. That’s the main
+//                     thing people are controlled by! Thoughts- their perception
+//                     of themselves! They're slowed down by their perception of
+//                     themselves. If you're taught you can’t do anything, you
+//                     won’t do anything. I was taught I could do everything.
+//                   </p>
+//                 </div>
+//                 {/*footer*/}
+//                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+//                   <button
+//                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+//                     type="button"
+//                     onClick={() => setShowModal(false)}
+//                   >
+//                     Close
+//                   </button>
+//                   <button
+//                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+//                     type="button"
+//                     onClick={() => {
+//                       console.log(props.id)
+//                       props.deleteActivityData(props.id)
+//                       setShowModal(false)
+//                     }}
+//                   >
+//                     Save Changes
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+//         </>
+//       ) : null}
+//     </>
+//   );
+// }

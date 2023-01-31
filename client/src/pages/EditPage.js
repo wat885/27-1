@@ -9,6 +9,7 @@ function EditPage() {
   const [img, setImg] = useState({});
   const [editmode, setEditmode] = useState(false);
 
+
   const navigate = new useNavigate();
   const params = useParams();
 
@@ -21,7 +22,7 @@ function EditPage() {
       const response = await axios.get(
         `http://localhost:4000/news/${params.id}`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setTopic(response.data.data.title);
       setContent(response.data.data.content);
 
@@ -102,7 +103,7 @@ function EditPage() {
           <form className="register-form" onSubmit={handleSubmit}>
             <div>
               {!editmode ? (
-                <h1 className=" text-[2.5rem]  ">{topic}</h1>
+                <h1 className=" text-[2rem] lg:text-[2.5rem]  ">{topic}</h1>
               ) : (
                 <div className="mb-3 pt-0">
                   <input
@@ -110,7 +111,7 @@ function EditPage() {
                     className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    placeholder="Enter content here"
+                    placeholder="Enter topic here"
                     required
                   />
                 </div>
@@ -123,12 +124,11 @@ function EditPage() {
                   htmlFor="upload"
                   className="cursor-pointer text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 m-t5 inline-block"
                 >
-                  Upload image
+                  Edit image
                   <input
                     id="upload"
                     name="img"
                     type="file"
-                    placeholder="Enter last name here"
                     onChange={handleFileChange}
                     hidden
                   />
@@ -141,7 +141,7 @@ function EditPage() {
                   return (
                     <div key={key} className="">
                       <img
-                        className=" object-cover w-[50%]  "
+                        className=" object-cover w-full lg:w-[50%]  "
                         src={URL.createObjectURL(file)}
                         alt={file.name}
                       />
@@ -153,7 +153,7 @@ function EditPage() {
 
             <div>
               {!editmode ? (
-                <p>{content}</p>
+                <p className="lg:text-[1rem]">{content}</p>
               ) : (
                 <div className="mb-3 pt-0">
                   <input
