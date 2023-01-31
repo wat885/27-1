@@ -7,8 +7,7 @@ function EditPage() {
   const [topic, setTopic] = useState("");
   const [content, setContent] = useState("");
   const [img, setImg] = useState({});
-  const [oldimg, setOldImg] = useState({});
-  const [editmode, setEditmode] = useState(true);
+  const [editmode, setEditmode] = useState(false);
 
   const navigate = new useNavigate();
   const params = useParams();
@@ -16,12 +15,6 @@ function EditPage() {
   useEffect(() => {
     getActivityData();
   }, []);
-
-  // for (let key in img) {
-  //   console.log("img", img[key]);
-  //   console.log("oldimg", oldimg);
-  //   console.log("T or F", img[key] === oldimg);
-  // }
 
   const getActivityData = async () => {
     try {
@@ -34,16 +27,13 @@ function EditPage() {
 
       const file = await getImageFile(response.data.data.image);
 
-      console.log(file)
-
-      setOldImg(file);
       const uniqueId = Date.now();
       setImg({
         [uniqueId]: file,
       });
     } catch (error) {
       console.log(error);
-      navigate('/')
+      navigate("/");
     }
   };
 
@@ -111,16 +101,17 @@ function EditPage() {
           </div>
           <form className="register-form" onSubmit={handleSubmit}>
             <div>
-              <h1 className=" text-[2.5rem]  ">{topic}</h1>
-
-              {editmode && (
+              {!editmode ? (
+                <h1 className=" text-[2.5rem]  ">{topic}</h1>
+              ) : (
                 <div className="mb-3 pt-0">
                   <input
                     type="text"
                     className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
                     value={topic}
-                    placeholder="Enter topic here"
                     onChange={(e) => setTopic(e.target.value)}
+                    placeholder="Enter content here"
+                    required
                   />
                 </div>
               )}
@@ -128,7 +119,10 @@ function EditPage() {
 
             <div>
               {editmode && (
-                <label htmlFor="upload" className="cursor-pointer">
+                <label
+                  htmlFor="upload"
+                  className="cursor-pointer text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 m-t5 inline-block"
+                >
                   Upload image
                   <input
                     id="upload"
@@ -158,8 +152,9 @@ function EditPage() {
             </div>
 
             <div>
-              <p>{content}</p>
-              {editmode && (
+              {!editmode ? (
+                <p>{content}</p>
+              ) : (
                 <div className="mb-3 pt-0">
                   <input
                     type="text"
