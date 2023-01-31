@@ -17,7 +17,24 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ## mockupdata
 ### `db.sql`
 
-## Available Scripts
+## News Page
+
+![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/main.png)
+
+## Create
+![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/create.png)
+
+## Content
+![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/content.png)
+
+## Update Content
+![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/edit-mode.png)
+
+## Delete
+![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/delete.png)
+
+
+
 
 
 
