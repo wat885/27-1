@@ -9,7 +9,6 @@ function EditPage() {
   const [img, setImg] = useState({});
   const [editmode, setEditmode] = useState(false);
 
-
   const navigate = new useNavigate();
   const params = useParams();
 
@@ -92,12 +91,12 @@ function EditPage() {
           <div className="flex justify-end">
             {" "}
             <button
-              className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mt-3"
               onClick={(e) => {
                 setEditmode(!editmode);
               }}
             >
-              {editmode ? "hide" : "edit"}
+              {editmode ? "Hide" : "Edit"}
             </button>
           </div>
           <form className="register-form" onSubmit={handleSubmit}>
@@ -106,14 +105,17 @@ function EditPage() {
                 <h1 className=" text-[2rem] lg:text-[2.5rem]  ">{topic}</h1>
               ) : (
                 <div className="mb-3 pt-0">
-                  <input
-                    type="text"
-                    className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                    placeholder="Enter topic here"
-                    required
-                  />
+                  <label className="text-slate-600">
+                    Topic
+                    <input
+                      type="text"
+                      className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
+                      placeholder="Enter topic here"
+                      required
+                    />
+                  </label>
                 </div>
               )}
             </div>
@@ -122,9 +124,9 @@ function EditPage() {
               {editmode && (
                 <label
                   htmlFor="upload"
-                  className="cursor-pointer text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white active:bg-gray-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 m-t5 inline-block"
+                  className="cursor-pointer text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-white active:bg-gray-600 font-bold text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 m-t5 inline-block"
                 >
-                  Edit image
+                  Edit Image
                   <input
                     id="upload"
                     name="img"
@@ -156,20 +158,23 @@ function EditPage() {
                 <p className="lg:text-[1rem]">{content}</p>
               ) : (
                 <div className="mb-3 pt-0">
-                  <input
-                    type="text"
-                    className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Enter content here"
-                  />
+                  <label className="text-slate-600">
+                    Content
+                    <input
+                      type="text"
+                      className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white  rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full"
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                      placeholder="Enter content here"
+                    />
+                  </label>
                 </div>
               )}
             </div>
 
             {editmode && (
               <button
-                className="text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="submit"
               >
                 Edit Activity

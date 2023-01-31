@@ -95,7 +95,7 @@ function ActivityPage() {
                       
                     </div>
                     <div
-                      className="my-2  w-[250px] hover:underline cursor-pointer"
+                      className="my-2  w-[250px] hover:underline cursor-pointer text-[#6c757d]"
                       onClick={(e) => navigate(`/${item.id}`)}
                     >
                       {item.title}
