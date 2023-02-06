@@ -17,6 +17,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ## mockupdata
 [db.sql](https://github.com/wat885/27-1/blob/main/db.sql)
 
+## .env
+```
+# cloudinary
+CLOUD_NAME =
+API_KEY = 
+API_SECRET = 
+```
+
 ## News Page
 
 ![alt text](https://raw.githubusercontent.com/wat885/27-1/dev/client/public/img/main.png)
